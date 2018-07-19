@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         HashMap<String, Object> newWord = new HashMap<>();
-        newWord.put("content","DEF");
+        newWord.put("content","XYZ");
 
         docRef.set(newWord).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
