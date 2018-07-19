@@ -15,14 +15,14 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     DocumentReference docRef = FirebaseFirestore.getInstance().collection("word").document("W1");
-     
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         HashMap<String, Object> newWord = new HashMap<>();
-        newWord.put("content","Abc");
+        newWord.put("content","DEF");
 
         docRef.set(newWord).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
