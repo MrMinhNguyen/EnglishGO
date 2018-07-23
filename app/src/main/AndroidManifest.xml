@@ -16,6 +16,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ChooseTopic">
+
+        </activity>
+
+        <activity android:name=".ChooseLevel">
+
+        </activity>
+
+        <activity android:name=".Challenge">
+
+        </activity>
+
+        <activity android:name=".Result">
+
+        </activity>
+
+
     </application>
 
 </manifest>
