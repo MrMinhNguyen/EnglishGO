@@ -37,6 +37,7 @@
 
     <Button
         android:id="@+id/challengeSound"
+        android:onClick="textToSpeech"
         android:layout_width="77dp"
         android:layout_height="59dp"
         android:layout_alignParentRight="true"

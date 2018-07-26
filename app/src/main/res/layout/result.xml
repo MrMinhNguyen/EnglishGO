@@ -23,6 +23,7 @@
 
     <Button
         android:id="@+id/resultBackButton"
+        android:onClick="getBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -37,6 +38,7 @@
 
     <Button
         android:id="@+id/resultSound"
+        android:onClick="textToSpeech"
         android:layout_width="77dp"
         android:layout_height="59dp"
         android:layout_alignRight="@+id/explanation"
@@ -53,26 +55,29 @@
 
     <EditText
         android:id="@+id/explanation"
-        android:layout_width="wrap_content"
+        android:textSize="13dp"
+        android:layout_width="299dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="174dp"
+        android:layout_marginTop="203dp"
         android:ems="10"
         android:inputType="textMultiLine" />
 
     <EditText
         android:id="@+id/sampleSen"
-        android:layout_width="wrap_content"
+        android:textSize="13dp"
+        android:layout_width="299dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="221dp"
+        android:layout_marginBottom="160dp"
         android:ems="10"
         android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/topicNextButton"
+        android:onClick="newChallenge"
         android:layout_width="131dp"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
