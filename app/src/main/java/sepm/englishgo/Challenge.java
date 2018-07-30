@@ -211,7 +211,7 @@ public class Challenge extends AppCompatActivity {
     }
 
     public void detectLabels(Bitmap bitmap){
-        /**Cloud Label Detection**/
+        /**Cloud Label Detection (can detect 10,000+ labels, after the first 100 tries will cost)**/
         FirebaseVisionCloudDetectorOptions options =
                 new FirebaseVisionCloudDetectorOptions.Builder()
                         .setModelType(FirebaseVisionCloudDetectorOptions.LATEST_MODEL)
@@ -240,7 +240,7 @@ public class Challenge extends AppCompatActivity {
                                 });
 
 
-        /**On-device Label Detection**/
+        /**On-device Label Detection (can detect 400+ labels, free)**/
 //        FirebaseVisionLabelDetectorOptions options =
 //                new FirebaseVisionLabelDetectorOptions.Builder()
 //                        .setConfidenceThreshold(0.8f)
