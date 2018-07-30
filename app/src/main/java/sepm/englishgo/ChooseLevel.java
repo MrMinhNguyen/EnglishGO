@@ -21,6 +21,7 @@ public class ChooseLevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LEVEL = 1;
+                openChallenge(v);
             }
         });
 
@@ -29,6 +30,7 @@ public class ChooseLevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LEVEL = 2;
+                openChallenge(v);
             }
         });
 
@@ -37,6 +39,7 @@ public class ChooseLevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LEVEL = 3;
+                openChallenge(v);
             }
         });
 

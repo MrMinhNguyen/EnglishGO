@@ -24,6 +24,7 @@ public class ChooseTopic extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TOPIC = 1;
+                openChooseLevel(v);
             }
         });
 
@@ -32,6 +33,7 @@ public class ChooseTopic extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TOPIC = 2;
+                openChooseLevel(v);
             }
         });
 
@@ -40,6 +42,7 @@ public class ChooseTopic extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TOPIC = 3;
+                openChooseLevel(v);
             }
         });
 
