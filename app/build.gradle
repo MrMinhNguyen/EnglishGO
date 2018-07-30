@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "sepm.englishgo"
-        minSdkVersion 24
+        minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -21,10 +21,6 @@ android {
             it.buildConfigField 'String', 'API_KEY', "\"AIzaSyBAm3Age5W8Pc9Q6kHpI0b0PCc9KfFGl9w\""
         }
     }
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-//    }
 }
 
 
@@ -40,6 +36,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-firestore:17.0.2'
 
+    implementation 'com.google.firebase:firebase-ml-vision:16.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
+    implementation 'com.google.firebase:firebase-ml-model-interpreter:16.0.0'
 
 //    implementation 'com.google.api-client:google-api-client-android:1.23.0'
 //    implementation 'com.google.http-client:google-http-client-gson:1.23.0' exclude module: 'httpclient'
