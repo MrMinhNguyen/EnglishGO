@@ -1,6 +1,7 @@
 package sepm.englishgo;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,7 +9,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -65,8 +68,8 @@ public class Challenge extends AppCompatActivity {
 
     public static Word VOCABULARY;
     TextToSpeech t1;
-    private static boolean correctPhoto = false;
-    private static boolean correctPron = false;
+    private static boolean correctPhoto;
+    private static boolean correctPron;
 
 
     // API
@@ -78,6 +81,11 @@ public class Challenge extends AppCompatActivity {
     public static final int CAMERA_IMAGE_REQUEST = 3;
 
     private static HashMap<String, Float> resultList = new HashMap();
+
+
+    // Record pronunciation
+    private static String pronunciation;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
 
 
     @Override
@@ -120,7 +128,16 @@ public class Challenge extends AppCompatActivity {
             }
         });
 
+        Button recordPron = findViewById(R.id.challengePronunciation);
+        recordPron.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptSpeechInput();
+            }
+        });
 
+        correctPhoto = false;
+        correctPron = false;
     }
 
     @Override
@@ -163,10 +180,36 @@ public class Challenge extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Take Photo
         if (requestCode == CAMERA_IMAGE_REQUEST && resultCode == RESULT_OK) {
             Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", getCameraFile());
             uploadImage(photoUri);
         }
+
+
+       // Record pronunciation
+
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+
+                    pronunciation = result.get(0);
+                    System.out.println("Goodbye: "+result.get(0));
+                    correctPron = checkPron();
+
+                }
+                check();
+                break;
+            }
+
+        }
+        check();
+
     }
 
     private Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
@@ -179,10 +222,12 @@ public class Challenge extends AppCompatActivity {
         if (originalHeight > originalWidth) {
             resizedHeight = maxDimension;
             resizedWidth = (int) (resizedHeight * (float) originalWidth / (float) originalHeight);
-        } else if (originalWidth > originalHeight) {
+        }
+        else if (originalWidth > originalHeight) {
             resizedWidth = maxDimension;
             resizedHeight = (int) (resizedWidth * (float) originalHeight / (float) originalWidth);
-        } else if (originalHeight == originalWidth) {
+        }
+        else if (originalHeight == originalWidth) {
             resizedHeight = maxDimension;
             resizedWidth = maxDimension;
         }
@@ -204,7 +249,8 @@ public class Challenge extends AppCompatActivity {
                 Log.d(TAG, "Image picking failed because " + e.getMessage());
                 Toast.makeText(this, "Something is wrong with that image. Pick a different one please.", Toast.LENGTH_LONG).show();
             }
-        } else {
+        }
+        else {
             Log.d(TAG, "Image picker gave us a null image.");
             Toast.makeText(this, "Something is wrong with that image. Pick a different one please.", Toast.LENGTH_LONG).show();
         }
@@ -236,9 +282,11 @@ public class Challenge extends AppCompatActivity {
                                                                 " Confidence: "+ confidence);
                                             resultList.put(text, confidence);
                                         }
+                                        correctPhoto = checkPhoto();
+                                        check();
                                     }
-                                });
 
+                                });
 
         /**On-device Label Detection (can detect 400+ labels, free)**/
 //        FirebaseVisionLabelDetectorOptions options =
@@ -270,11 +318,74 @@ public class Challenge extends AppCompatActivity {
 
     }
 
+    public boolean checkPhoto(){
+        AlertDialog.Builder congrat = new AlertDialog.Builder(this);
 
-    public void check(View v){
+        for (String s : resultList.keySet()){
+            if (s.contains(VOCABULARY.getContent())){
+
+
+                congrat
+                        .setMessage("Correct Photo")
+                        .create();
+
+                congrat.show();
+                return true;
+            }
+        }
+
+        congrat
+                .setMessage("Incorrect Photo")
+                .create();
+
+        congrat.show();
+        return false;
+    }
+
+    public boolean checkPron(){
+        if (pronunciation.equals(VOCABULARY.getContent())){
+            AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+
+            congrat
+                    .setMessage("Correct Pronunciation")
+                    .create();
+
+            congrat.show();
+            return true;
+        }
+        else {
+            AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+
+            congrat
+                    .setMessage("Incorrect Pronunciation")
+                    .create();
+
+            congrat.show();
+            return false;
+        }
+
+    }
+
+
+    public void check(){
         if (this.correctPhoto && this.correctPron){
-            Intent changeView = new Intent( Challenge.this, Result.class);
-            startActivity(changeView);
+            AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+
+            congrat
+                    .setMessage("Congratulation!!!\nWell Done!!!")
+                    .create();
+
+            congrat.show();
+
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent changeView = new Intent( Challenge.this, Result.class);
+                    startActivity(changeView);
+                }
+            }, 3000);
+
         }
     }
 
@@ -305,15 +416,25 @@ public class Challenge extends AppCompatActivity {
                     }
                 }
             });
-
-            this.correctPron = true;
-            this.correctPhoto = true;
-
-            check(view);
         }
         catch (NullPointerException e){
             System.out.println("No word error");
         }
     }
 
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Pronounce the Word");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        }
+        catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(), "Sorry device does not support this function",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
+
