@@ -6,9 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52a82635-2f76-4b2f-a15c-e17ff159bcac" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/sepm/englishgo/Challenge.java" afterPath="$PROJECT_DIR$/src/main/java/sepm/englishgo/Challenge.java" />
-    </list>
+    <list default="true" id="52a82635-2f76-4b2f-a15c-e17ff159bcac" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -2184,7 +2182,7 @@
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="device.picker.selection" value="05157df582065f18" />
   </component>
   <component name="RunDashboard">

@@ -54,11 +54,11 @@
 
     <Button
         android:id="@+id/challengeHint"
-        android:onClick="showHint"
         android:layout_width="77dp"
         android:layout_height="59dp"
+        android:layout_alignLeft="@+id/challengePhoto"
         android:layout_below="@+id/challengeWord"
-        android:layout_toRightOf="@+id/challengeBackButton"
+        android:onClick="showHint"
         android:text="Hint"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,15 +68,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.563" />
 
+    <ImageView
+        android:id="@+id/challengeShowImage"
+        android:layout_width="321dp"
+        android:layout_height="288dp"
+        android:layout_centerInParent="true" />
+
     <Button
         android:id="@+id/challengePhoto"
-        android:layout_width="228dp"
+        android:layout_width="113dp"
         android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="192dp"
-        android:layout_marginLeft="33dp"
-        android:text="Take Photo"
+        android:layout_below="@+id/challengeShowImage"
+        android:layout_marginLeft="65dp"
+        android:text="Capture"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -87,12 +92,12 @@
 
     <Button
         android:id="@+id/challengePronunciation"
-        android:layout_width="230dp"
+        android:layout_width="113dp"
         android:layout_height="67dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/challengePhoto"
-        android:layout_marginBottom="77dp"
-        android:text="Record Pronunciation"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/challengeShowImage"
+        android:layout_marginRight="64dp"
+        android:text="Record"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"

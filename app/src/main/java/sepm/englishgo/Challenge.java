@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,20 +29,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-//import com.google.api.client.extensions.android.http.AndroidHttp;
-//import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-//import com.google.api.client.http.HttpTransport;
-//import com.google.api.client.json.JsonFactory;
-//import com.google.api.client.json.gson.GsonFactory;
-//import com.google.api.services.vision.v1.Vision;
-//import com.google.api.services.vision.v1.VisionRequest;
-//import com.google.api.services.vision.v1.VisionRequestInitializer;
-//import com.google.api.services.vision.v1.model.AnnotateImageRequest;
-//import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
-//import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
-//import com.google.api.services.vision.v1.model.EntityAnnotation;
-//import com.google.api.services.vision.v1.model.Feature;
-//import com.google.api.services.vision.v1.model.Image;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -86,6 +74,8 @@ public class Challenge extends AppCompatActivity {
     // Record pronunciation
     private static String pronunciation;
     private final int REQ_CODE_SPEECH_INPUT = 100;
+
+    private ImageView challengeShowImage;
 
 
     @Override
@@ -135,6 +125,8 @@ public class Challenge extends AppCompatActivity {
                 promptSpeechInput();
             }
         });
+
+        challengeShowImage = findViewById(R.id.challengeShowImage);
 
         correctPhoto = false;
         correctPron = false;
@@ -244,8 +236,10 @@ public class Challenge extends AppCompatActivity {
                                 MAX_DIMENSION);
 
                 detectLabels(bitmap);
+                challengeShowImage.setImageBitmap(bitmap);
 
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Log.d(TAG, "Image picking failed because " + e.getMessage());
                 Toast.makeText(this, "Something is wrong with that image. Pick a different one please.", Toast.LENGTH_LONG).show();
             }
@@ -330,6 +324,12 @@ public class Challenge extends AppCompatActivity {
                         .create();
 
                 congrat.show();
+
+                Button takePhoto = findViewById(R.id.challengePhoto);
+                takePhoto.setBackgroundColor(Color.parseColor("#00ff00"));
+                takePhoto.setEnabled(false);
+                takePhoto.setClickable(false);
+
                 return true;
             }
         }
@@ -339,6 +339,9 @@ public class Challenge extends AppCompatActivity {
                 .create();
 
         congrat.show();
+
+        Button takePhoto = findViewById(R.id.challengePhoto);
+        takePhoto.setBackgroundColor(Color.parseColor("#ff0000"));
         return false;
     }
 
@@ -351,6 +354,12 @@ public class Challenge extends AppCompatActivity {
                     .create();
 
             congrat.show();
+
+            Button record = findViewById(R.id.challengePronunciation);
+            record.setBackgroundColor(Color.parseColor("#00ff00"));
+            record.setEnabled(false);
+            record.setClickable(false);
+
             return true;
         }
         else {
@@ -361,6 +370,10 @@ public class Challenge extends AppCompatActivity {
                     .create();
 
             congrat.show();
+
+            Button takePhoto = findViewById(R.id.challengePhoto);
+            takePhoto.setBackgroundColor(Color.parseColor("#ff0000"));
+            
             return false;
         }
 
