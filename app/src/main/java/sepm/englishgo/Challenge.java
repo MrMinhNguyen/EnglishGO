@@ -2,8 +2,10 @@ package sepm.englishgo;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -452,20 +454,20 @@ public class Challenge extends AppCompatActivity {
             }, 2000);
 
             try {
-                File file = new File("point.txt");
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileOutputStream fileOutputStream = new FileOutputStream(file,false);
-                fileOutputStream.write(MainActivity.POINT);
+                SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.point), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt(getString(R.string.point), MainActivity.POINT);
+                editor.commit();
 
+                int defaultValue = 0;
+                int highScore = sharedPref.getInt(getString(R.string.point), defaultValue);
+                System.out.println("Fuck " + getString(R.string.point)+ " " + highScore);
             }
-            catch(FileNotFoundException ex) {
-                Log.d(TAG, ex.getMessage());
+            catch (Exception e){
+                System.out.println("Error fuck!");
             }
-            catch(IOException ex) {
-                Log.d(TAG, ex.getMessage());
-            }
+
+
 
         }
     }

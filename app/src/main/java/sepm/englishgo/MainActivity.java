@@ -2,6 +2,7 @@ package sepm.englishgo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -59,21 +60,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        try {
-            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("point.txt")));
-            Scanner sc = new Scanner(textFileStream);
-            while (sc.hasNextLine()) {
-                String aLine = sc.nextLine();
-
-                POINT = Integer.parseInt(aLine);
-
-                System.out.println(POINT);
-            }
-            sc.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.point), Context.MODE_PRIVATE);
+        int defaultValue = 0;
+        int highScore = sharedPref.getInt(getString(R.string.point), defaultValue);
+        POINT = highScore;
 
     }
 

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="98dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/comfortaa_bold"
         android:text="Topic"
         android:textAlignment="center"
@@ -24,11 +24,12 @@
 
     <Button
         android:id="@+id/topic1"
-        android:layout_width="228dp"
-        android:layout_height="65dp"
-        android:layout_above="@+id/topic2"
-        android:layout_centerHorizontal="true"
-        android:text="School"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/topic2"
+        android:layout_marginStart="55dp"
+        android:background="@drawable/school"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -39,12 +40,13 @@
 
     <Button
         android:id="@+id/topic2"
-        android:layout_width="228dp"
-        android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="213dp"
-        android:text="Zoo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="55dp"
+        android:layout_marginTop="199dp"
+        android:background="@drawable/zoo"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -55,12 +57,12 @@
 
     <Button
         android:id="@+id/topic3"
-        android:layout_width="228dp"
-        android:layout_height="65dp"
-        android:layout_below="@+id/topic2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-213dp"
-        android:text="Home"
+        android:layout_marginBottom="118dp"
+        android:background="@drawable/home"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -68,6 +70,37 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.563" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/topic1"
+        android:layout_marginStart="76dp"
+        android:text="School"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/topic1"
+        android:layout_marginEnd="85dp"
+        android:text="Zoo"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topic3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-118dp"
+        android:text="Home"
+        android:textSize="20dp" />
+
 
 
 </RelativeLayout >
