@@ -1,6 +1,7 @@
 package sepm.englishgo;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -43,16 +44,32 @@ public class ChooseLevel extends AppCompatActivity {
             }
         });
 
+
+        final Button back = findViewById(R.id.levelBackButton);
+        final Drawable before = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(before);
+        final Drawable after = getResources().getDrawable(R.drawable.back_after);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back.setBackground(after);
+                Intent changeView = new Intent( ChooseLevel.this, ChooseTopic.class);
+                startActivity(changeView);
+            }
+        });
+
+    }
+
+    protected void onStop() {
+        super.onStop();
+
+        final Button back = findViewById(R.id.levelBackButton);
+        final Drawable before = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(before);
     }
 
     public void openChallenge(View view){
         Intent changeView = new Intent( ChooseLevel.this, Challenge.class);
-        startActivity(changeView);
-    }
-
-
-    public void getBack(View view){
-        Intent changeView = new Intent( ChooseLevel.this, ChooseTopic.class);
         startActivity(changeView);
     }
 

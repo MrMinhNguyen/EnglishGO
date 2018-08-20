@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +46,8 @@ import com.google.firebase.ml.vision.label.FirebaseVisionLabelDetectorOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -130,6 +134,27 @@ public class Challenge extends AppCompatActivity {
 
         correctPhoto = false;
         correctPron = false;
+
+        final Button back = findViewById(R.id.challengeBackButton);
+        final Drawable before = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(before);
+        final Drawable after = getResources().getDrawable(R.drawable.back_after);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back.setBackground(after);
+                Intent changeView = new Intent( Challenge.this, Rank.class);
+                startActivity(changeView);
+            }
+        });
+    }
+
+    protected void onStop() {
+        super.onStop();
+
+        final Button back = findViewById(R.id.challengeBackButton);
+        final Drawable before = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(before);
     }
 
     @Override
@@ -195,12 +220,18 @@ public class Challenge extends AppCompatActivity {
                     correctPron = checkPron();
 
                 }
-                check();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        check();
+                    }
+                }, 2000);
+
+
                 break;
             }
 
         }
-        check();
 
     }
 
@@ -277,7 +308,12 @@ public class Challenge extends AppCompatActivity {
                                             resultList.put(text, confidence);
                                         }
                                         correctPhoto = checkPhoto();
-                                        check();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                check();
+                                            }
+                                        }, 2000);
                                     }
 
                                 });
@@ -314,19 +350,21 @@ public class Challenge extends AppCompatActivity {
 
     public boolean checkPhoto(){
         AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+        TextView noti = new TextView(this);
+        noti.setGravity(Gravity.CENTER);
 
         for (String s : resultList.keySet()){
             if (s.contains(VOCABULARY.getContent())){
-
-
+                noti.setText("\nCorrect Photo\n");
                 congrat
-                        .setMessage("Correct Photo")
+                        .setView(noti)
                         .create();
 
                 congrat.show();
 
                 Button takePhoto = findViewById(R.id.challengePhoto);
-                takePhoto.setBackgroundColor(Color.parseColor("#00ff00"));
+                Drawable truePhoto = getResources().getDrawable(R.drawable.camera_true);
+                takePhoto.setBackground(truePhoto);
                 takePhoto.setEnabled(false);
                 takePhoto.setClickable(false);
 
@@ -334,48 +372,58 @@ public class Challenge extends AppCompatActivity {
             }
         }
 
+        noti.setText("\nIncorrect Photo\n");
         congrat
-                .setMessage("Incorrect Photo")
+                .setView(noti)
                 .create();
 
         congrat.show();
 
         Button takePhoto = findViewById(R.id.challengePhoto);
-        takePhoto.setBackgroundColor(Color.parseColor("#ff0000"));
+        Drawable falsePhoto = getResources().getDrawable(R.drawable.camera_false);
+        takePhoto.setBackground(falsePhoto);
+
         return false;
     }
 
     public boolean checkPron(){
-        if (pronunciation.equals(VOCABULARY.getContent())){
-            AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+        AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+        TextView noti = new TextView(this);
+        noti.setGravity(Gravity.CENTER);
 
+        if (pronunciation.equals(VOCABULARY.getContent())){
+            noti.setText("\nCorrect Pronunciation\n");
             congrat
-                    .setMessage("Correct Pronunciation")
+                    .setView(noti)
                     .create();
 
             congrat.show();
 
             Button record = findViewById(R.id.challengePronunciation);
-            record.setBackgroundColor(Color.parseColor("#00ff00"));
+            Drawable truePron = getResources().getDrawable(R.drawable.microphone_true);
+            record.setBackground(truePron);
             record.setEnabled(false);
             record.setClickable(false);
 
-            return true;
+            return  true;
         }
         else {
-            AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+            noti.setText("\nIncorrect Pronunciation\n");
 
             congrat
-                    .setMessage("Incorrect Pronunciation")
+                    .setView(noti)
                     .create();
 
             congrat.show();
 
-            Button takePhoto = findViewById(R.id.challengePhoto);
-            takePhoto.setBackgroundColor(Color.parseColor("#ff0000"));
-            
+            Button record = findViewById(R.id.challengePronunciation);
+            Drawable falsePron = getResources().getDrawable(R.drawable.microphone_false);
+            record.setBackground(falsePron);
+
             return false;
         }
+
+
 
     }
 
@@ -383,13 +431,17 @@ public class Challenge extends AppCompatActivity {
     public void check(){
         if (this.correctPhoto && this.correctPron){
             AlertDialog.Builder congrat = new AlertDialog.Builder(this);
+            TextView noti = new TextView(this);
+            noti.setGravity(Gravity.CENTER);
 
+            noti.setText("\nWell Done!!!\n");
             congrat
-                    .setMessage("Congratulation!!!\nWell Done!!!")
+                    .setView(noti)
                     .create();
 
             congrat.show();
 
+            MainActivity.POINT++;
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -397,14 +449,25 @@ public class Challenge extends AppCompatActivity {
                     Intent changeView = new Intent( Challenge.this, Result.class);
                     startActivity(changeView);
                 }
-            }, 3000);
+            }, 2000);
+
+            try {
+                File file = new File("point.txt");
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileOutputStream fileOutputStream = new FileOutputStream(file,false);
+                fileOutputStream.write(MainActivity.POINT);
+
+            }
+            catch(FileNotFoundException ex) {
+                Log.d(TAG, ex.getMessage());
+            }
+            catch(IOException ex) {
+                Log.d(TAG, ex.getMessage());
+            }
 
         }
-    }
-
-    public void getBack(View view){
-        Intent changeView = new Intent( Challenge.this, ChooseTopic.class);
-        startActivity(changeView);
     }
 
     public void showHint (View view){

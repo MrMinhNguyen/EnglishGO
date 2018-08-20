@@ -8,14 +8,16 @@
 
     <TextView
         android:id="@+id/appName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="142dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="EnglishGO"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/comfortaa_bold"
+        android:text="English\nGO"
         android:textAlignment="center"
-        android:textSize="60dp"
+        android:textColor="#000000"
+        android:textSize="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,21 +26,21 @@
         app:layout_constraintVertical_bias="0.155" />
 
     <ImageView
-        android:layout_width="278dp"
-        android:layout_height="288dp"
-        android:layout_centerInParent="true"
+        android:layout_width="284dp"
+        android:layout_height="248dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="146dp"
         android:src="@drawable/english_go_logo" />
 
     <Button
         android:id="@+id/homeStartButton"
-        android:onClick="openChooseTopic"
-        android:layout_width="131dp"
-        android:layout_height="70dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:text="Start"
-        android:textSize="25dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/foot_before"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"

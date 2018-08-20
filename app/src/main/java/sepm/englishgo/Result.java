@@ -1,10 +1,12 @@
 package sepm.englishgo;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -27,8 +29,29 @@ public class Result extends AppCompatActivity {
         explanation.setText("Explanation:\n"+Challenge.VOCABULARY.getExplanation());
         sampleSen.setText("Sample Sentence:\n"+Challenge.VOCABULARY.getSampleSen());
 
-
+        // Back button
+        final Button back = findViewById(R.id.resultBackButton);
+        final Drawable before = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(before);
+        final Drawable after = getResources().getDrawable(R.drawable.back_after);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back.setBackground(after);
+                Intent changeView = new Intent( Result.this, Rank.class);
+                startActivity(changeView);
+            }
+        });
     }
+
+    protected void onStop() {
+        super.onStop();
+
+        final Button back = findViewById(R.id.resultBackButton);
+        final Drawable before = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(before);
+    }
+
 
     public void newChallenge(View v){
         Intent changeView = new Intent( Result.this, Challenge.class);
@@ -53,7 +76,7 @@ public class Result extends AppCompatActivity {
     }
 
     public void getBack(View view){
-        Intent changeView = new Intent( Result.this, ChooseTopic.class);
+        Intent changeView = new Intent(Result.this, Rank.class);
         startActivity(changeView);
     }
 }
