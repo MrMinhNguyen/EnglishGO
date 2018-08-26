@@ -1,6 +1,8 @@
 package sepm.englishgo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
 public class Rank extends AppCompatActivity {
 
@@ -37,6 +38,24 @@ public class Rank extends AppCompatActivity {
                 start.setBackground(after);
                 Intent changeView = new Intent( Rank.this, ChooseTopic.class);
                 startActivity(changeView);
+            }
+        });
+
+        // Reset point
+        final Button reset = findViewById(R.id.rankReset);
+        final Drawable resetAfter = getResources().getDrawable(R.drawable.reset_after);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reset.setBackground(resetAfter);
+                MainActivity.POINT = 0;
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.point), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt(getString(R.string.point), MainActivity.POINT);
+                editor.commit();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
             }
         });
     }

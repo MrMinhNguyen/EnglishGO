@@ -31,14 +31,28 @@ public class Result extends AppCompatActivity {
 
         // Back button
         final Button back = findViewById(R.id.resultBackButton);
-        final Drawable before = getResources().getDrawable(R.drawable.back_before);
-        back.setBackground(before);
-        final Drawable after = getResources().getDrawable(R.drawable.back_after);
+        final Drawable beforeBack = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(beforeBack);
+        final Drawable afterBack = getResources().getDrawable(R.drawable.back_after);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                back.setBackground(after);
+                back.setBackground(afterBack);
                 Intent changeView = new Intent( Result.this, Rank.class);
+                startActivity(changeView);
+            }
+        });
+
+        // Next button
+        final Button start = findViewById(R.id.topicNextButton);
+        final Drawable beforeStart = getResources().getDrawable(R.drawable.foot_before);
+        start.setBackground(beforeStart);
+        final Drawable afterStart = getResources().getDrawable(R.drawable.foot_after);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start.setBackground(afterStart);
+                Intent changeView = new Intent( Result.this, Challenge.class);
                 startActivity(changeView);
             }
         });
@@ -48,14 +62,12 @@ public class Result extends AppCompatActivity {
         super.onStop();
 
         final Button back = findViewById(R.id.resultBackButton);
-        final Drawable before = getResources().getDrawable(R.drawable.back_before);
-        back.setBackground(before);
-    }
+        final Drawable beforeBack = getResources().getDrawable(R.drawable.back_before);
+        back.setBackground(beforeBack);
 
-
-    public void newChallenge(View v){
-        Intent changeView = new Intent( Result.this, Challenge.class);
-        startActivity(changeView);
+        final Button start = findViewById(R.id.topicNextButton);
+        final Drawable beforeStart = getResources().getDrawable(R.drawable.foot_before);
+        start.setBackground(beforeStart);
     }
 
     public void textToSpeech(View view){
@@ -79,4 +91,6 @@ public class Result extends AppCompatActivity {
         Intent changeView = new Intent(Result.this, Rank.class);
         startActivity(changeView);
     }
+
+
 }

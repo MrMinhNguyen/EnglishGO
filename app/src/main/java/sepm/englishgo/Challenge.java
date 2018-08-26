@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -149,6 +151,8 @@ public class Challenge extends AppCompatActivity {
                 startActivity(changeView);
             }
         });
+
+
     }
 
     protected void onStop() {
@@ -351,18 +355,19 @@ public class Challenge extends AppCompatActivity {
     }
 
     public boolean checkPhoto(){
-        AlertDialog.Builder congrat = new AlertDialog.Builder(this);
-        TextView noti = new TextView(this);
-        noti.setGravity(Gravity.CENTER);
 
         for (String s : resultList.keySet()){
             if (s.contains(VOCABULARY.getContent())){
-                noti.setText("\nCorrect Photo\n");
-                congrat
-                        .setView(noti)
-                        .create();
-
-                congrat.show();
+                final ImageView check = findViewById(R.id.challengeCheck);
+                check.setImageResource(R.drawable.correct);
+                check.setVisibility(View.VISIBLE);
+                check.bringToFront();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        check.setVisibility(View.GONE);
+                    }
+                }, 2000);
 
                 Button takePhoto = findViewById(R.id.challengePhoto);
                 Drawable truePhoto = getResources().getDrawable(R.drawable.camera_true);
@@ -374,12 +379,16 @@ public class Challenge extends AppCompatActivity {
             }
         }
 
-        noti.setText("\nIncorrect Photo\n");
-        congrat
-                .setView(noti)
-                .create();
-
-        congrat.show();
+        final ImageView check = findViewById(R.id.challengeCheck);
+        check.setImageResource(R.drawable.incorrect);
+        check.setVisibility(View.VISIBLE);
+        check.bringToFront();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                check.setVisibility(View.GONE);
+            }
+        }, 2000);
 
         Button takePhoto = findViewById(R.id.challengePhoto);
         Drawable falsePhoto = getResources().getDrawable(R.drawable.camera_false);
@@ -389,17 +398,18 @@ public class Challenge extends AppCompatActivity {
     }
 
     public boolean checkPron(){
-        AlertDialog.Builder congrat = new AlertDialog.Builder(this);
-        TextView noti = new TextView(this);
-        noti.setGravity(Gravity.CENTER);
 
         if (pronunciation.equals(VOCABULARY.getContent())){
-            noti.setText("\nCorrect Pronunciation\n");
-            congrat
-                    .setView(noti)
-                    .create();
-
-            congrat.show();
+            final ImageView check = findViewById(R.id.challengeCheck);
+            check.setImageResource(R.drawable.correct);
+            check.setVisibility(View.VISIBLE);
+            check.bringToFront();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    check.setVisibility(View.GONE);
+                }
+            }, 2000);
 
             Button record = findViewById(R.id.challengePronunciation);
             Drawable truePron = getResources().getDrawable(R.drawable.microphone_true);
@@ -410,13 +420,16 @@ public class Challenge extends AppCompatActivity {
             return  true;
         }
         else {
-            noti.setText("\nIncorrect Pronunciation\n");
-
-            congrat
-                    .setView(noti)
-                    .create();
-
-            congrat.show();
+            final ImageView check = findViewById(R.id.challengeCheck);
+            check.setImageResource(R.drawable.incorrect);
+            check.setVisibility(View.VISIBLE);
+            check.bringToFront();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    check.setVisibility(View.GONE);
+                }
+            }, 2000);
 
             Button record = findViewById(R.id.challengePronunciation);
             Drawable falsePron = getResources().getDrawable(R.drawable.microphone_false);
@@ -425,23 +438,21 @@ public class Challenge extends AppCompatActivity {
             return false;
         }
 
-
-
     }
 
 
     public void check(){
         if (this.correctPhoto && this.correctPron){
-            AlertDialog.Builder congrat = new AlertDialog.Builder(this);
-            TextView noti = new TextView(this);
-            noti.setGravity(Gravity.CENTER);
-
-            noti.setText("\nWell Done!!!\n");
-            congrat
-                    .setView(noti)
-                    .create();
-
-            congrat.show();
+            final ImageView check = findViewById(R.id.challengeCheck);
+            check.setImageResource(R.drawable.congrat);
+            check.setVisibility(View.VISIBLE);
+            check.bringToFront();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    check.setVisibility(View.GONE);
+                }
+            }, 5000);
 
             MainActivity.POINT++;
 
@@ -453,21 +464,11 @@ public class Challenge extends AppCompatActivity {
                 }
             }, 2000);
 
-            try {
-                SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.point), Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt(getString(R.string.point), MainActivity.POINT);
-                editor.commit();
-
-                int defaultValue = 0;
-                int highScore = sharedPref.getInt(getString(R.string.point), defaultValue);
-                System.out.println("Fuck " + getString(R.string.point)+ " " + highScore);
-            }
-            catch (Exception e){
-                System.out.println("Error fuck!");
-            }
-
-
+            // Save point
+            SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.point), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(getString(R.string.point), MainActivity.POINT);
+            editor.commit();
 
         }
     }
