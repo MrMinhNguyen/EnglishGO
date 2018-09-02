@@ -211,8 +211,6 @@ public class Challenge extends AppCompatActivity {
 
 
        // Record pronunciation
-
-
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
@@ -222,7 +220,6 @@ public class Challenge extends AppCompatActivity {
 
 
                     pronunciation = result.get(0);
-                    System.out.println("Goodbye: "+result.get(0));
                     correctPron = checkPron();
 
                 }
@@ -303,7 +300,6 @@ public class Challenge extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionCloudLabel>>() {
                                     @Override
                                     public void onSuccess(List<FirebaseVisionCloudLabel> labels) {
-                                        System.out.println("hello");
                                         for (FirebaseVisionCloudLabel label: labels) {
                                             String text = label.getLabel();
                                             String entityId = label.getEntityId();
@@ -454,7 +450,18 @@ public class Challenge extends AppCompatActivity {
                 }
             }, 5000);
 
-            MainActivity.POINT++;
+            switch (VOCABULARY.getLevel()){
+                case 1:
+                    MainActivity.POINT += 1;
+                    break;
+                case 2:
+                    MainActivity.POINT += 2;
+                    break;
+                case 3:
+                    MainActivity.POINT += 3;
+                    break;
+            }
+
 
             new Handler().postDelayed(new Runnable() {
                 @Override

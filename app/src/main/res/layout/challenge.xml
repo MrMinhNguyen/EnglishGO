@@ -27,7 +27,6 @@
         android:layout_above="@+id/challengeSound"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/comfortaa_bold"
-        android:text="Word"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="50dp"

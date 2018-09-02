@@ -59,7 +59,7 @@
     <TextView
         android:id="@+id/explanation"
         android:layout_width="328dp"
-        android:layout_height="176dp"
+        android:layout_height="153dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="184dp"
@@ -67,20 +67,20 @@
         android:fontFamily="@font/comfortaa_bold"
         android:inputType="textMultiLine"
         android:textColor="#000000"
-        android:textSize="15dp" />
+        android:textSize="13dp" />
 
     <TextView
         android:id="@+id/sampleSen"
         android:layout_width="328dp"
         android:layout_height="70dp"
-        android:layout_above="@+id/topicNextButton"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="151dp"
         android:ems="10"
         android:fontFamily="@font/comfortaa_bold"
         android:inputType="textMultiLine"
         android:textColor="#000000"
-        android:textSize="15dp" />
+        android:textSize="13dp" />
 
     <Button
         android:id="@+id/topicNextButton"
