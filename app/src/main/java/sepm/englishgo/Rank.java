@@ -58,6 +58,18 @@ public class Rank extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Add Word
+        final Button addWord = findViewById(R.id.rankAddWord);
+        final Drawable addWordAfter = getResources().getDrawable(R.drawable.add_word_after);
+        addWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addWord.setBackground(addWordAfter);
+                Intent changeView = new Intent( Rank.this, AddWord.class);
+                startActivity(changeView);
+            }
+        });
     }
 
     protected void onStop() {

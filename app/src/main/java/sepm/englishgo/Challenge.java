@@ -184,7 +184,8 @@ public class Challenge extends AppCompatActivity {
                                                 Manifest.permission.CAMERA)) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-            Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", getCameraFile());
+            Uri photoUri = FileProvider.getUriForFile(this,
+                    getApplicationContext().getPackageName() + ".provider", getCameraFile());
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 
@@ -275,12 +276,14 @@ public class Challenge extends AppCompatActivity {
             }
             catch (IOException e) {
                 Log.d(TAG, "Image picking failed because " + e.getMessage());
-                Toast.makeText(this, "Something is wrong with that image. Pick a different one please.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Something is wrong with that image. Pick a different one please.",
+                        Toast.LENGTH_LONG).show();
             }
         }
         else {
             Log.d(TAG, "Image picker gave us a null image.");
-            Toast.makeText(this, "Something is wrong with that image. Pick a different one please.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Something is wrong with that image. Pick a different one please.",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -304,10 +307,13 @@ public class Challenge extends AppCompatActivity {
                                             String text = label.getLabel();
                                             String entityId = label.getEntityId();
                                             float confidence = label.getConfidence();
-                                            System.out.println("Text: " + text +
-                                                                " EntityID: " + entityId +
-                                                                " Confidence: "+ confidence);
-                                            resultList.put(text, confidence);
+
+                                            if (confidence >= 0.7){
+                                                System.out.println("Text: " + text +
+                                                        " EntityID: " + entityId +
+                                                        " Confidence: "+ confidence);
+                                                resultList.put(text, confidence);
+                                            }
                                         }
                                         correctPhoto = checkPhoto();
                                         new Handler().postDelayed(new Runnable() {
@@ -394,8 +400,10 @@ public class Challenge extends AppCompatActivity {
     }
 
     public boolean checkPron(){
+        System.out.println("Pronunciation: " + pronunciation);
+        System.out.println(VOCABULARY.getContent().contains(pronunciation));
 
-        if (pronunciation.equals(VOCABULARY.getContent())){
+        if (VOCABULARY.getContent().contains(pronunciation)){
             final ImageView check = findViewById(R.id.challengeCheck);
             check.setImageResource(R.drawable.correct);
             check.setVisibility(View.VISIBLE);
