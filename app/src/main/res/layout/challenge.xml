@@ -24,30 +24,25 @@
         android:id="@+id/challengeWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/challengeSound"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
         android:fontFamily="@font/comfortaa_bold"
+        android:text=""
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.155" />
+        android:textSize="50dp" />
 
     <Button
         android:id="@+id/challengeSound"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/challengeHint"
+        android:layout_alignParentTop="true"
         android:layout_marginEnd="74dp"
-        android:fontFamily="@font/comfortaa_bold"
-        android:onClick="textToSpeech"
+        android:layout_marginTop="135dp"
         android:background="@drawable/sound"
-        android:textColor="#000000"
+        android:onClick="textToSpeech"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -55,31 +50,25 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.563" />
+
 
     <Button
         android:id="@+id/challengeHint"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_above="@+id/challengeShowImage"
-        android:layout_alignStart="@+id/challengePhoto"
-        android:layout_marginStart="17dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="135dp"
         android:background="@drawable/light_bulb"
         android:onClick="showHint"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.563" />
+        android:textSize="10dp" />
 
     <ImageView
         android:id="@+id/challengeShowImage"
         android:layout_width="302dp"
-        android:layout_height="235dp"
+        android:layout_height="246dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="132dp" />
+        android:layout_marginBottom="144dp" />
 
     <ImageView
         android:id="@+id/challengeCheck"

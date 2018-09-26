@@ -8,9 +8,8 @@
         android:id="@+id/rankPoint"
         android:layout_width="104dp"
         android:layout_height="52dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/rankImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
         android:fontFamily="@font/comfortaa_bold"
         android:text="Point"
         android:textAlignment="center"
@@ -29,7 +28,7 @@
         android:layout_height="52dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="84dp"
         android:fontFamily="@font/comfortaa_bold"
         android:text="Rank"
         android:textAlignment="center"
@@ -46,8 +45,9 @@
         android:id="@+id/rankImage"
         android:layout_width="254dp"
         android:layout_height="224dp"
-        android:layout_above="@+id/rankPoint"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="143dp" />
 
     <Button
         android:id="@+id/rankStartButton"
@@ -84,8 +84,7 @@
         android:id="@+id/rankAddWord"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/rankRank"
-        android:layout_marginBottom="-69dp"
+        android:layout_alignTop="@+id/rankReset"
         android:layout_toStartOf="@+id/rankRank"
         android:background="@drawable/add_word_before"
         app:layout_constraintBottom_toBottomOf="parent"

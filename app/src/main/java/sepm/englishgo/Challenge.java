@@ -323,7 +323,6 @@ public class Challenge extends AppCompatActivity {
                                             }
                                         }, 2000);
                                     }
-
                                 });
 
         /**On-device Label Detection (can detect 400+ labels, free)**/
